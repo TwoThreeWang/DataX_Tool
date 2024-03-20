@@ -17,7 +17,7 @@ DataX Tool 是一个可视化配置管理工具客户端，用于简化 DataX �
 
 ## 快速开始
 
-1. 下载 build/bin/ 目录下的所有文件
+1. 下载并解压 [https://github.com/TwoThreeWang/DataX_Tool/releases/](https://github.com/TwoThreeWang/DataX_Tool/releases/)
 2. 双击打开
 3. 按照软件首页的使用指引，配置并开始使用
 

@@ -106,3 +106,4 @@ dist
 .DS_Store
 
 data.db
+/.idea/vcs.xml
