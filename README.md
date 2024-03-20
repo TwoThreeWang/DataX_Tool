@@ -29,27 +29,27 @@ DataX Tool 是一个可视化配置管理工具客户端，用于简化 DataX �
 
 ### 数据源配置
 
-![](\images\datasource.png)
+![](images/datasource.png)
 
 ### Job 列表
 
-![](\images\joblist.png)
+![](images/joblist.png)
 
 ### 新增 Job
 
-![](\images\addjob.png)
+![](images/addjob.png)
 
 ### json 模式修改 job 文件
 
-![](\images\jsonjob.png)
+![](images/jsonjob.png)
 
 ### 查看 DataX 运行日志
 
-![](\images\log.png)
+![](images/log.png)
 
 ### 系统设置
 
-![](\images\setting.png)
+![](images/setting.png)
 
 ## 二次开发
 
