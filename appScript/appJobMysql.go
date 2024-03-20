@@ -7,7 +7,10 @@ import (
 
 // AppGetMysqlDb 查询所有库名
 func AppGetMysqlDb(jdbcURL string) string {
-	jdbcURL = GetTns(jdbcURL, "information_schema")
+	jdbcURL, err := GetTns(jdbcURL, "information_schema")
+	if err != nil {
+		return fmt.Sprintf(err.Error())
+	}
 	// 连接到 MySQL 数据库
 	mgr, err := NewMysqlManager(jdbcURL)
 	if err != nil {
@@ -37,7 +40,10 @@ func AppGetMysqlDb(jdbcURL string) string {
 
 // AppGetMysqlTable 查询所有表名
 func AppGetMysqlTable(jdbcURL, database string) string {
-	jdbcURL = GetTns(jdbcURL, database)
+	jdbcURL, err := GetTns(jdbcURL, database)
+	if err != nil {
+		return fmt.Sprintf(err.Error())
+	}
 	// 连接到 MySQL 数据库
 	mgr, err := NewMysqlManager(jdbcURL)
 	if err != nil {
@@ -68,7 +74,10 @@ func AppGetMysqlTable(jdbcURL, database string) string {
 
 // AppGetMysqlColumn 查询表中所有字段名
 func AppGetMysqlColumn(jdbcURL, database, table_name string) string {
-	jdbcURL = GetTns(jdbcURL, database)
+	jdbcURL, err := GetTns(jdbcURL, database)
+	if err != nil {
+		return fmt.Sprintf(err.Error())
+	}
 	// 连接到 MySQL 数据库
 	mgr, err := NewMysqlManager(jdbcURL)
 	if err != nil {

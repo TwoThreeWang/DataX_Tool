@@ -17,8 +17,9 @@
       <a-typography-title :heading="5">软件信息</a-typography-title>
       <a-typography-paragraph type="secondary">
         <a-tag>名称：</a-tag>DataX Tool<br />
-        <a-tag>版本：</a-tag>1.0<br />
-        <a-tag>发布日期：</a-tag>2024年03月15日<br />
+        <a-tag>版本：</a-tag>1.0.1<br />
+        <a-tag>上线日期：</a-tag>2024年03月15日<br />
+        <a-tag>最后发布日期：</a-tag>2024年03月20日<br />
         <a-tag>反馈：</a-tag
         ><a
           href="https://github.com/TwoThreeWang/DataX_Tool/issues"

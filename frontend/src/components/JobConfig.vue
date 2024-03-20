@@ -54,7 +54,11 @@
                   :style="{ marginLeft: '10px' }"
                   >获取预览</a-button
                 >
-                {{ txtFirstLine }}
+                <a-textarea
+                  placeholder="点击预览文件第一行"
+                  v-model="txtFirstLine"
+                  auto-size
+                />
               </a-form-item>
               <a-form-item>
                 <a-checkbox v-model="txt_reader_form.skipHeader">
@@ -69,14 +73,13 @@
             <a-form :model="mysql_reader_form" auto-label-width>
               <a-form-item tooltip="选择已保存的数据源" label="选择数据源">
                 <a-select
-                  v-model="mysql_link"
                   placeholder="选择一个数据源"
                   allow-clear
                   allow-search
                   @change="changeMysqlLink"
                 >
-                  <a-option v-for="item in dataSource" :value="item"
-                    >{{ item.db_type }} - {{ item.alias }}</a-option
+                  <a-option v-for="(link, index) in dataSource" :value="index"
+                    >{{ link.db_type }} - {{ link.alias }}</a-option
                   >
                 </a-select>
               </a-form-item>
@@ -247,13 +250,12 @@
             <a-form :model="mysql_writer_form" auto-label-width>
               <a-form-item tooltip="选择已保存的数据源" label="选择数据源">
                 <a-select
-                  v-model="mysql_link_writer"
                   placeholder="选择一个数据源"
                   allow-clear
                   allow-search
                   @change="changeMysqlLinkWriter"
                 >
-                  <a-option v-for="item in dataSource" :value="item"
+                  <a-option v-for="(item, index) in dataSource" :value="index"
                     >{{ item.db_type }} - {{ item.alias }}</a-option
                   >
                 </a-select>
@@ -439,8 +441,6 @@ export default {
       encoding: "UTF-8",
       fieldDelimiter: ",",
     });
-    const mysql_link = ref("");
-    const mysql_link_writer = ref("");
     const mysql_jdbc_reader = ref("");
     const mysql_jdbc_writer = ref("");
     const mysql_reader_form = ref({
@@ -484,8 +484,6 @@ export default {
       mysqlColumns,
       txt_reader_form,
       txt_writer_form,
-      mysql_link,
-      mysql_link_writer,
       mysql_jdbc_reader,
       mysql_jdbc_writer,
       mysql_reader_form,
@@ -511,7 +509,6 @@ export default {
     save() {
       try {
         var reader = "";
-        this.mysql_link = "";
         if (this.readerType == "txt") {
           reader = this.txt_reader_form;
           reader.skipHeader = reader.skipHeader.toString();
@@ -581,10 +578,11 @@ export default {
         console.log(e);
       }
     },
-    changeMysqlLink() {
-      this.mysql_reader_form.connection.jdbcUrl = this.mysql_link["link"];
-      this.mysql_reader_form.username = this.mysql_link["username"];
-      this.mysql_reader_form.password = this.mysql_link["password"];
+    changeMysqlLink(index) {
+      this.mysql_reader_form.connection.jdbcUrl =
+        this.dataSource[index]["link"];
+      this.mysql_reader_form.username = this.dataSource[index]["username"];
+      this.mysql_reader_form.password = this.dataSource[index]["password"];
       this.mysql_jdbc_reader =
         this.mysql_reader_form.connection.jdbcUrl +
         "&username=" +
@@ -593,12 +591,11 @@ export default {
         this.mysql_reader_form.password;
       this.getMysqlDb(this.mysql_jdbc_reader);
     },
-    changeMysqlLinkWriter() {
-      console.log(this.collapseKey[0]);
+    changeMysqlLinkWriter(index) {
       this.mysql_writer_form.connection.jdbcUrl =
-        this.mysql_link_writer["link"];
-      this.mysql_writer_form.username = this.mysql_link_writer["username"];
-      this.mysql_writer_form.password = this.mysql_link_writer["password"];
+        this.dataSource[index]["link"];
+      this.mysql_writer_form.username = this.dataSource[index]["username"];
+      this.mysql_writer_form.password = this.dataSource[index]["password"];
       this.mysql_jdbc_writer =
         this.mysql_writer_form.connection.jdbcUrl +
         "&username=" +

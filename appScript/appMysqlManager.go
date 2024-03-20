@@ -23,7 +23,12 @@ func NewMysqlManager(jdbcURL string) (*MysqlManager, error) {
 	return &MysqlManager{db: db}, nil
 }
 
-func GetTns(jdbcURL, database string) string {
+func GetTns(jdbcURL, database string) (jdbcURLRes string, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("jdbc连接解析错误: %v", r)
+		}
+	}()
 	fmt.Println(jdbcURL)
 	// 正则表达式匹配 IP 地址和端口号
 	ipPortRegex := `^jdbc:mysql://(\d+\.\d+\.\d+\.\d+):(\d+).*`
@@ -35,8 +40,8 @@ func GetTns(jdbcURL, database string) string {
 	credentialMatches := regexp.MustCompile(credentialRegex).FindStringSubmatch(jdbcURL)
 	username := credentialMatches[1]
 	password := credentialMatches[2]
-	jdbcURL = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, ipAddress, port, database)
-	return jdbcURL
+	jdbcURLRes = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, ipAddress, port, database)
+	return
 }
 
 func (mgr *MysqlManager) Close() error {

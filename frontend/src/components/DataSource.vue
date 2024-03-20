@@ -80,16 +80,8 @@ export default {
         dataIndex: "db_type",
       },
       {
-        title: "链接",
-        dataIndex: "link",
-      },
-      {
         title: "用户名",
         dataIndex: "username",
-      },
-      {
-        title: "密码",
-        dataIndex: "password",
       },
       {
         title: "操作",
