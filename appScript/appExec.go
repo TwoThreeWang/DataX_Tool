@@ -49,18 +49,13 @@ func AppStartScript(path, logPath string, args []string) (int, error) {
 // AppKillProcess 根据pid杀掉进程
 func AppKillProcess(pid int) error {
 	if runtime.GOOS == "windows" {
-		// 将 pid 转换为 Windows 进程句柄
-		process, err := syscall.OpenProcess(syscall.PROCESS_TERMINATE, false, uint32(pid))
+		// 构建 taskkill 命令
+		cmd := exec.Command("taskkill", "/F", "/PID", strconv.Itoa(pid))
+		// 执行命令
+		err := cmd.Run()
 		if err != nil {
 			return err
 		}
-		// 杀死进程
-		err = syscall.TerminateProcess(process, 1)
-		if err != nil {
-			return err
-		}
-		// 关闭进程句柄
-		syscall.CloseHandle(process)
 	} else {
 		// 在 Linux 下，可以使用 `kill` 命令杀死进程
 		cmd := exec.Command("kill", "-9", strconv.Itoa(pid))

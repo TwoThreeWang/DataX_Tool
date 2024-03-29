@@ -42,13 +42,7 @@
       ok-text="保存"
     >
       <template #title> 查看内容【{{ handleOkFile }}】 </template>
-      <a-textarea
-        ref="textarea"
-        v-model="fileConn"
-        auto-size
-        id="myTextarea"
-        @input="scrollToBottom"
-      />
+      <a-textarea ref="textarea" v-model="fileConn" auto-size id="myTextarea" />
     </a-modal>
   </div>
 </template>
