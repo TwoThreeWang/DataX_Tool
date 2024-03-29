@@ -107,3 +107,4 @@ dist
 
 data.db
 /.idea/vcs.xml
+/.vscode/launch.json

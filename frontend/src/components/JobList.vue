@@ -42,7 +42,13 @@
       ok-text="保存"
     >
       <template #title> 查看内容【{{ handleOkFile }}】 </template>
-      <a-textarea v-model="fileConn" auto-size id="myTextarea" />
+      <a-textarea
+        ref="textarea"
+        v-model="fileConn"
+        auto-size
+        id="myTextarea"
+        @input="scrollToBottom"
+      />
     </a-modal>
   </div>
 </template>
@@ -171,6 +177,12 @@ export default {
         }
       });
     },
+    scrollToBottom() {
+      var divElement = document.querySelector(".arco-modal-body");
+      if (divElement) {
+        divElement.scrollTop = divElement.scrollHeight;
+      }
+    },
     // 执行接口调用的函数
     async poll() {
       if (!this.nowPid) {
@@ -179,8 +191,8 @@ export default {
         return;
       }
       this.getFile("log/out.log");
+      this.scrollToBottom();
       IsProcessRunning(this.nowPid).then((result) => {
-        console.log(result);
         if (!result) {
           console.log("进程已结束");
           this.nowRunFile = "";
@@ -189,7 +201,7 @@ export default {
         }
       });
       // 等待指定的时间间隔后再次调用 poll 函数
-      setTimeout(this.poll, 2000);
+      setTimeout(this.poll, 1000);
     },
   },
   mounted() {
