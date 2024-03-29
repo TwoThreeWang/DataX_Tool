@@ -61,6 +61,8 @@ DataX Tool 是一个可视化配置管理工具客户端，用于简化 DataX �
 
 打包使用 Wails 工具，关于 Wails：[https://wails.io/zh-Hans/docs/introduction](https://wails.io/zh-Hans/docs/introduction)
 
+打包命令：wails build -clean -devtools
+
 ## TODO LIST
 
 - [ ] 增加 Oracle 数据库支持
