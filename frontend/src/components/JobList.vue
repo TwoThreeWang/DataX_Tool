@@ -180,12 +180,13 @@ export default {
     scrollToBottom() {
       var divElement = document.querySelector(".arco-modal-body");
       if (divElement) {
-        divElement.scrollTop = divElement.scrollHeight;
+        divElement.scrollTop = divElement.scrollHeight + 100;
       }
     },
     // 执行接口调用的函数
     async poll() {
       if (!this.nowPid) {
+        this.scrollToBottom();
         console.log("退出循环");
         // 如果 flag 为 false，则停止轮询
         return;
@@ -201,7 +202,7 @@ export default {
         }
       });
       // 等待指定的时间间隔后再次调用 poll 函数
-      setTimeout(this.poll, 1000);
+      setTimeout(this.poll, 800);
     },
   },
   mounted() {

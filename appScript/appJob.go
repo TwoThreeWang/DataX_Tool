@@ -17,7 +17,7 @@ func AppGetJobJson(reader, readerType, writer, writerType, jsonFile string) stri
 			fmt.Println("Error parsing readerJsonValue value: ", err.Error())
 			return fmt.Sprintf("reader信息解析报错： %s", err.Error())
 		}
-		path := strings.Replace(readerJsonValue["path"], "\\", "\\\\", -1)
+		path := strings.Replace(readerJsonValue["path"], "\\", "/", -1)
 		paths := strings.Split(path, ",")
 		readerData = GetTxtReader(paths, readerJsonValue["encoding"], readerJsonValue["fieldDelimiter"], readerJsonValue["skipHeader"], readerJsonValue["columnNum"])
 	} else if readerType == "mysql" {
@@ -40,7 +40,7 @@ func AppGetJobJson(reader, readerType, writer, writerType, jsonFile string) stri
 			fmt.Println("Error parsing writerJsonValue value: %s", err)
 			return fmt.Sprintf("writer信息解析报错： %s", err.Error())
 		}
-		path := strings.Replace(writerJsonValue["path"], "\\", "\\\\", -1)
+		path := strings.Replace(writerJsonValue["path"], "\\", "/", -1)
 		writerData = GetTxtWriter(path, writerJsonValue["fileName"], writerJsonValue["writeMode"], writerJsonValue["fileFormat"], writerJsonValue["encoding"], writerJsonValue["fieldDelimiter"])
 	} else if writerType == "mysql" {
 		var writerDataParameter map[string]interface{}
